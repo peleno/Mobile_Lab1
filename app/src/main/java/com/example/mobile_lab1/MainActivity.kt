@@ -10,11 +10,11 @@ class MainActivity : AppCompatActivity() {
     private var signUpButton: Button? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        // setSupportActionBar(findViewById(R.id.my_toolbar))
-        signInButton = findViewById(R.id.sign_in_button)
-        signUpButton = findViewById(R.id.sign_up_button)
+        setSupportActionBar(findViewById(R.id.toolbar))
+        initializeViews()
 
         signInButton?.setOnClickListener {
             startActivity(Intent(this, SignInActivity::class.java))
@@ -23,5 +23,10 @@ class MainActivity : AppCompatActivity() {
         signUpButton?.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
         }
+    }
+
+    private fun initializeViews() {
+        signInButton = findViewById(R.id.sign_in_button)
+        signUpButton = findViewById(R.id.sign_up_button)
     }
 }

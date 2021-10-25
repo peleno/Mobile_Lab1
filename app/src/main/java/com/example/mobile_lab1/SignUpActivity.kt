@@ -25,7 +25,51 @@ class SignUpActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+        initializeToolbar()
+        initializeViews()
+        signUpButton?.setOnClickListener {
+            val isValidationSuccessful = validateInputFields()
+            if (isValidationSuccessful) {
+                displaySuccess()
+            }
+        }
+    }
 
+    private fun displaySuccess() {
+        clearInputFieldsText()
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setTitle("Success")
+        builder.setMessage("You have successfully signed up!")
+        builder.show()
+    }
+
+    private fun initializeToolbar() {
+        setSupportActionBar(findViewById(R.id.sign_up_toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24)
+    }
+
+    private fun validateInputFields(): Boolean {
+        clearInputFieldsError()
+
+        val isValidName = InputTextValidator.validateName(nameTextView, nameTextInputLayout)
+        val isValidEmail = InputTextValidator.validateEmail(emailTextView, emailTextInputLayout)
+        val isValidPassword =
+            InputTextValidator.validatePassword(passwordTextView, passwordTextInputLayout)
+        var doPasswordsMatch = false
+
+        if (isValidPassword) {
+            doPasswordsMatch =
+                passwordTextView?.text.toString() == confirmPasswordTextView?.text.toString()
+            if (!doPasswordsMatch) {
+                confirmPasswordInputLayout?.error = "Passwords are not matching"
+            }
+        }
+
+        return isValidName && isValidEmail && isValidPassword && doPasswordsMatch
+    }
+
+    private fun initializeViews() {
         signUpButton = findViewById(R.id.sign_up_button)
 
         nameTextInputLayout = findViewById(R.id.name_layout)
@@ -39,31 +83,19 @@ class SignUpActivity : AppCompatActivity() {
 
         confirmPasswordInputLayout = findViewById(R.id.confirm_password_layout)
         confirmPasswordTextView = findViewById(R.id.confirm_password_input_edit_text)
+    }
 
-        signUpButton?.setOnClickListener {
-            nameTextInputLayout?.error = null
-            emailTextInputLayout?.error = null
-            passwordTextInputLayout?.error = null
-            confirmPasswordInputLayout?.error = null
+    private fun clearInputFieldsError() {
+        nameTextInputLayout?.error = null
+        emailTextInputLayout?.error = null
+        passwordTextInputLayout?.error = null
+        confirmPasswordInputLayout?.error = null
+    }
 
-            val isValidName = InputTextValidator.validateName(nameTextView, nameTextInputLayout)
-            val isValidEmail = InputTextValidator.validateEmail(emailTextView, emailTextInputLayout)
-            val isValidPassword = InputTextValidator.validatePassword(passwordTextView, passwordTextInputLayout)
-            var doPasswordsMatch = false
-
-            if (isValidPassword) {
-                doPasswordsMatch = passwordTextView?.text.toString() == confirmPasswordTextView?.text.toString()
-                if (!doPasswordsMatch) {
-                    confirmPasswordInputLayout?.error = "Passwords are not matching"
-                }
-            }
-
-            if (isValidName && isValidEmail && isValidPassword && doPasswordsMatch) {
-                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-                builder.setTitle("Success")
-                builder.setMessage("You have successfully signed up!")
-                builder.show()
-            }
-        }
+    private fun clearInputFieldsText() {
+        nameTextView?.text?.clear()
+        emailTextView?.text?.clear()
+        passwordTextView?.text?.clear()
+        confirmPasswordTextView?.text?.clear()
     }
 }

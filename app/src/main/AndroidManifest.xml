@@ -11,10 +11,25 @@
         android:theme="@style/Theme.Mobile_Lab1">
         <activity
             android:name=".SignInActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName="com.example.mobile_lab1.MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mobile_lab1.MainActivity" />
+        </activity>
+
         <activity
             android:name=".SignUpActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName="com.example.mobile_lab1.MainActivity">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mobile_lab1.MainActivity" />
+        </activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

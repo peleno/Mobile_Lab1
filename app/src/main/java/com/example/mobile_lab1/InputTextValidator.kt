@@ -1,6 +1,6 @@
 package com.example.mobile_lab1
 
-import android.widget.TextView
+import android.util.Patterns
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -8,19 +8,22 @@ class InputTextValidator {
 
     companion object {
         fun validateName(textView: TextInputEditText?, textInputLayout: TextInputLayout?): Boolean {
-            val isValidName = !textView?.text.isNullOrEmpty()
-            if (!isValidName) {
+            val isEmptyName = textView?.text.isNullOrEmpty()
+            if (isEmptyName) {
                 textInputLayout?.error = "Name field cannot be blank"
             }
-            return isValidName
+            return !isEmptyName
         }
 
         fun validateEmail(textView: TextInputEditText?, textInputLayout: TextInputLayout?): Boolean {
-            val isValidEmail = !textView?.text.isNullOrEmpty()
-            if (!isValidEmail) {
+            val isEmptyEmail = textView?.text.isNullOrEmpty()
+            val isValidEmailFormat = Patterns.EMAIL_ADDRESS.matcher(textView?.text.toString()).matches()
+            if (isEmptyEmail) {
                 textInputLayout?.error = "Email field cannot be blank"
+            } else if (!isValidEmailFormat) {
+                textInputLayout?.error = "Incorrect email format"
             }
-            return isValidEmail
+            return !isEmptyEmail && isValidEmailFormat
         }
 
         fun validatePassword(textView: TextInputEditText?, textInputLayout: TextInputLayout?): Boolean {
@@ -32,18 +35,6 @@ class InputTextValidator {
                 textInputLayout?.error = "Password should be at least 9 characters long"
             }
             return !isEmptyPassword && isLongPassword
-        }
-
-        fun isValidEmail(textView: TextView?): Boolean {
-            return !textView?.text.isNullOrEmpty()
-        }
-
-        fun isValidPassword(textView: TextView?): Boolean {
-            return !textView?.text.isNullOrEmpty() && textView?.text!!.length > 8
-        }
-
-        fun isValidName(textView: TextView?): Boolean {
-            return !textView?.text.isNullOrEmpty()
         }
     }
 }
