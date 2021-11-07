@@ -45,6 +45,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun displaySuccess() {
+        clearInputFieldsText()
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle("Success")
         builder.setMessage("You have successfully signed in!")
@@ -65,5 +66,10 @@ class SignInActivity : AppCompatActivity() {
 
         passwordTextInputLayout = findViewById(R.id.password_layout)
         passwordTextView = findViewById(R.id.password_input_edit_text)
+    }
+
+    private fun clearInputFieldsText() {
+        emailTextView?.text?.clear()
+        passwordTextView?.text?.clear()
     }
 }

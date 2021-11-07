@@ -24,8 +24,7 @@
                 app:titleTextColor="@color/white"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp"
-                app:title="@string/sign_up_toolbar_title"
-                app:titleMarginStart="40dp" />
+                app:title="@string/sign_up_toolbar_title" />
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/start_guideline"

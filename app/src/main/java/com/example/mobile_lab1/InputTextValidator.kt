@@ -7,6 +7,7 @@ import com.google.android.material.textfield.TextInputLayout
 class InputTextValidator {
 
     companion object {
+        private const val MIN_PASSWORD_LENGTH = 8
         fun validateName(textView: TextInputEditText?, textInputLayout: TextInputLayout?): Boolean {
             val isEmptyName = textView?.text.isNullOrEmpty()
             if (isEmptyName) {
@@ -28,11 +29,11 @@ class InputTextValidator {
 
         fun validatePassword(textView: TextInputEditText?, textInputLayout: TextInputLayout?): Boolean {
             val isEmptyPassword = textView?.text.isNullOrEmpty()
-            val isLongPassword = textView?.text!!.length > 8
+            val isLongPassword = textView?.text!!.length >= MIN_PASSWORD_LENGTH
             if (isEmptyPassword) {
                 textInputLayout?.error = "Password field cannot be blank"
             } else if (!isLongPassword) {
-                textInputLayout?.error = "Password should be at least 9 characters long"
+                textInputLayout?.error = "Password should be at least $MIN_PASSWORD_LENGTH characters long"
             }
             return !isEmptyPassword && isLongPassword
         }
