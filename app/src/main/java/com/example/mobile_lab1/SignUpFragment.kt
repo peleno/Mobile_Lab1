@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -34,6 +35,8 @@ class SignUpFragment : Fragment() {
     private var confirmPasswordTextView: TextInputEditText? = null
 
     private var signUpToolbar: Toolbar? = null
+
+    private var viewModel: SignUpViewModel? = null
 
     private lateinit var attachedContext: Context
 
@@ -61,11 +64,37 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeToolbar(view)
         initializeViews(view)
+        initializeViewModel()
+
         signUpButton?.setOnClickListener {
-            val isValidationSuccessful = validateInputFields()
-            if (isValidationSuccessful) {
+            clearInputFieldsError()
+            val signUpSuccessful = viewModel?.signUp(
+                nameTextView?.text.toString(), emailTextView?.text.toString(),
+                passwordTextView?.text.toString(), confirmPasswordTextView?.text.toString()
+            )
+            if (signUpSuccessful == true) {
                 displaySuccess()
             }
+        }
+    }
+
+    private fun initializeViewModel() {
+        viewModel = ViewModelProvider(this).get(SignUpViewModel::class.java)
+
+        viewModel?.nameError?.observe(viewLifecycleOwner) { error ->
+            nameTextInputLayout?.error = error
+        }
+
+        viewModel?.emailError?.observe(viewLifecycleOwner) { error ->
+            emailTextInputLayout?.error = error
+        }
+
+        viewModel?.passwordError?.observe(viewLifecycleOwner) { error ->
+            passwordTextInputLayout?.error = error
+        }
+
+        viewModel?.confirmPasswordError?.observe(viewLifecycleOwner) { error ->
+            confirmPasswordInputLayout?.error = error
         }
     }
 
@@ -98,26 +127,6 @@ class SignUpFragment : Fragment() {
         signUpToolbar?.setNavigationOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, MainFragment.newInstance())?.commit()
         }
-    }
-
-    private fun validateInputFields(): Boolean {
-        clearInputFieldsError()
-
-        val isValidName = InputTextValidator.validateName(nameTextView, nameTextInputLayout)
-        val isValidEmail = InputTextValidator.validateEmail(emailTextView, emailTextInputLayout)
-        val isValidPassword =
-            InputTextValidator.validatePassword(passwordTextView, passwordTextInputLayout)
-        var doPasswordsMatch = false
-
-        if (isValidPassword) {
-            doPasswordsMatch =
-                passwordTextView?.text.toString() == confirmPasswordTextView?.text.toString()
-            if (!doPasswordsMatch) {
-                confirmPasswordInputLayout?.error = "Passwords are not matching"
-            }
-        }
-
-        return isValidName && isValidEmail && isValidPassword && doPasswordsMatch
     }
 
     private fun initializeViews(view: View) {

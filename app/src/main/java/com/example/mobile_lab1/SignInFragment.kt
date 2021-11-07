@@ -9,6 +9,7 @@ import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
@@ -28,6 +29,8 @@ class SignInFragment : Fragment() {
     private var passwordTextView: TextInputEditText? = null
 
     private var signInToolbar: Toolbar? = null
+
+    private var viewModel: SignInViewModel? = null
 
     private lateinit var attachedContext: Context
 
@@ -55,11 +58,23 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initializeToolbar(view)
         initializeViews(view)
+        initializeViewModel()
         signInButton?.setOnClickListener {
-            val isValidationSuccessful = validateInputFields()
-            if (isValidationSuccessful) {
+            clearInputFieldsError()
+            val signInSuccessful = viewModel?.signIn(emailTextView?.text.toString(), passwordTextView?.text.toString())
+            if (signInSuccessful == true) {
                 displaySuccess()
             }
+        }
+    }
+
+    private fun initializeViewModel() {
+        viewModel = ViewModelProvider(this).get(SignInViewModel::class.java)
+        viewModel?.emailError?.observe(viewLifecycleOwner) { error ->
+            emailTextInputLayout?.error = error
+        }
+        viewModel?.passwordError?.observe(viewLifecycleOwner) { error ->
+            passwordTextInputLayout?.error = error
         }
     }
 
@@ -76,15 +91,6 @@ class SignInFragment : Fragment() {
                 arguments = Bundle().apply {
                 }
             }
-    }
-
-    private fun validateInputFields(): Boolean {
-        clearInputFieldsError()
-        val validEmail: Boolean =
-            InputTextValidator.validateEmail(emailTextView, emailTextInputLayout)
-        val validPassword: Boolean =
-            InputTextValidator.validatePassword(passwordTextView, passwordTextInputLayout)
-        return validPassword && validEmail
     }
 
     private fun clearInputFieldsError() {
