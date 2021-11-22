@@ -1,4 +1,4 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.validators
 
 import android.util.Patterns
 import java.lang.IllegalStateException

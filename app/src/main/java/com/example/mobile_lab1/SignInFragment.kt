@@ -1,17 +1,22 @@
 package com.example.mobile_lab1
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.mobile_lab1.viewmodel.SignInViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import timber.log.Timber
+import java.lang.IllegalStateException
 
 /**
  * A simple [Fragment] subclass.
@@ -61,9 +66,10 @@ class SignInFragment : Fragment() {
         initializeViewModel()
         signInButton?.setOnClickListener {
             clearInputFieldsError()
-            val signInSuccessful = viewModel?.signIn(emailTextView?.text.toString(), passwordTextView?.text.toString())
-            if (signInSuccessful == true) {
-                displaySuccess()
+            try {
+                viewModel?.signIn(emailTextView?.text.toString(), passwordTextView?.text.toString())
+            } catch (e: IllegalStateException) {
+                Timber.w(e.message!!)
             }
         }
     }
@@ -75,6 +81,19 @@ class SignInFragment : Fragment() {
         }
         viewModel?.passwordError?.observe(viewLifecycleOwner) { error ->
             passwordTextInputLayout?.error = error
+        }
+        viewModel?.user?.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                clearInputFieldsText()
+                displaySuccess()
+                startActivity(Intent(attachedContext, WelcomeActivity::class.java))
+            } else {
+                passwordTextInputLayout?.error = "Incorrect email or password"
+                Toast.makeText(
+                    attachedContext, "Incorrect email or password",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
