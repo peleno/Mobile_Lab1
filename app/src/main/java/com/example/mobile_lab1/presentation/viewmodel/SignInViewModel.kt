@@ -1,9 +1,9 @@
-package com.example.mobile_lab1.viewmodel
+package com.example.mobile_lab1.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.mobile_lab1.validators.EmailValidator
-import com.example.mobile_lab1.validators.PasswordValidator
+import com.example.mobile_lab1.presentation.validators.EmailValidator
+import com.example.mobile_lab1.presentation.validators.PasswordValidator
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

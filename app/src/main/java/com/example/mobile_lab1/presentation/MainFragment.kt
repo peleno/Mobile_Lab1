@@ -1,4 +1,4 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.mobile_lab1.R
 
 /**
  * A simple [Fragment] subclass.
@@ -45,11 +46,17 @@ class MainFragment : Fragment() {
         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
         initializeViews(view)
         signInButton?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, SignInFragment.newInstance())?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.container,
+                SignInFragment.newInstance()
+            )?.commit()
         }
 
         signUpButton?.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, SignUpFragment.newInstance())?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.container,
+                SignUpFragment.newInstance()
+            )?.commit()
         }
     }
     companion object {

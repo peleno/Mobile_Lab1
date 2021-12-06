@@ -1,4 +1,4 @@
-package com.example.mobile_lab1.validators
+package com.example.mobile_lab1.presentation.validators
 
 import java.lang.IllegalStateException
 

@@ -5,7 +5,7 @@
       <map>
         <entry key="../../../../../../layout/custom_preview.xml" value="0.34322916666666664" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.34427083333333336" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_sign_in.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_welcome.xml" value="0.23867753623188406" />
@@ -13,6 +13,7 @@
         <entry key="app/src/main/res/layout/fragment_sign_in.xml" value="0.26811594202898553" />
         <entry key="app/src/main/res/layout/fragment_sign_up.xml" value="0.24954710144927536" />
         <entry key="app/src/main/res/layout/fragment_welcome.xml" value="0.5647263249348393" />
+        <entry key="app/src/main/res/layout/user_item.xml" value="0.4" />
       </map>
     </option>
   </component>

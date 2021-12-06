@@ -1,6 +1,7 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.presentation
 
 import android.app.Application
+import com.example.mobile_lab1.BuildConfig
 import timber.log.Timber
 
 class MobileLab : Application() {

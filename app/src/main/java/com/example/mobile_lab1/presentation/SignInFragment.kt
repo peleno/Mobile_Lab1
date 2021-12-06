@@ -1,4 +1,4 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -12,7 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.mobile_lab1.viewmodel.SignInViewModel
+import com.example.mobile_lab1.R
+import com.example.mobile_lab1.presentation.viewmodel.SignInViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import timber.log.Timber
@@ -129,7 +130,10 @@ class SignInFragment : Fragment() {
         signInToolbar = view.findViewById(R.id.sign_in_toolbar)
         signInToolbar?.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         signInToolbar?.setNavigationOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.container, MainFragment.newInstance())?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(
+                R.id.container,
+                MainFragment.newInstance()
+            )?.commit()
         }
     }
 

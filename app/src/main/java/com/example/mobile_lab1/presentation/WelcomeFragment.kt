@@ -1,4 +1,4 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.presentation
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import com.example.mobile_lab1.R
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 

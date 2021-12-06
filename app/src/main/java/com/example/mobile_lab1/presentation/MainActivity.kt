@@ -1,7 +1,8 @@
-package com.example.mobile_lab1
+package com.example.mobile_lab1.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.mobile_lab1.R
 
 class MainActivity : AppCompatActivity() {
 
