@@ -47,14 +47,14 @@ class MainFragment : Fragment() {
         initializeViews(view)
         signInButton?.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.container,
+                R.id.welcome_container,
                 SignInFragment.newInstance()
             )?.commit()
         }
 
         signUpButton?.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.container,
+                R.id.welcome_container,
                 SignUpFragment.newInstance()
             )?.commit()
         }

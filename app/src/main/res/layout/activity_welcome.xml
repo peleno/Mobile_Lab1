@@ -1,17 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?><!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:id="@+id/welcome_container"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:context=".presentation.WelcomeActivity">-->
-
-<!--</FrameLayout>-->
-
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/user_list"
+    android:id="@+id/welcome_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:itemCount="12"
-    tools:listitem="@layout/user_item" />
+    tools:context=".presentation.WelcomeActivity">
+</FrameLayout>

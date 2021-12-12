@@ -1,35 +1,34 @@
-package com.example.mobile_lab1.presentation.user_list
+package com.example.mobile_lab1.presentation.news_articles_list
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.mobile_lab1.domain.NewsArticle
 import com.example.mobile_lab1.domain.Repository
-import com.example.mobile_lab1.domain.User
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class UserViewModel(private val repository: Repository) : ViewModel() {
-    val userList = MutableLiveData<List<User>>()
+class ArticleViewModel(private val repository: Repository) : ViewModel() {
+    val articlesList = MutableLiveData<List<NewsArticle>>()
     val errorMessage = MutableLiveData<String>()
 
     private var compositeDisposable = CompositeDisposable()
 
-    fun getUsers() {
+    fun getNewsArticles() {
         compositeDisposable.add(
-            repository.getUsers()
+            repository.getNewsArticles()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { response ->
-                    val userList = mutableListOf<User>()
-                    for (user in response.results) {
-                        userList.add(User(user.name.first, user.name.last, user.picture.medium))
+                    val articlesList = mutableListOf<NewsArticle>()
+                    for (article in response.articles) {
+                        articlesList.add(NewsArticle(article.title, article.source.name, article.image))
                     }
-                    return@map userList
+                    return@map articlesList
                 }
                 .subscribe({ result ->
-                    Timber.d("UPDATE user list live data")
-                    userList.value = result
+                    articlesList.value = result
                 }, { error ->
                     errorMessage.value = error.message
                 })

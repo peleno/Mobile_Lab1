@@ -7,7 +7,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitBuilder {
-    val api: RandomUserApi
+    val api: NewsApi
 
     init {
         val retrofit = Retrofit.Builder()
@@ -17,7 +17,7 @@ object RetrofitBuilder {
             .client(getClient())
             .build()
 
-        api = retrofit.create(RandomUserApi::class.java)
+        api = retrofit.create(NewsApi::class.java)
     }
 
     private fun getClient(): OkHttpClient {

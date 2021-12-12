@@ -1,6 +1,6 @@
 package com.example.mobile_lab1.data.entity
 
-data class Id(
+data class Source(
     val name: String,
-    val value: String
+    val url: String
 )

@@ -131,7 +131,7 @@ class SignInFragment : Fragment() {
         signInToolbar?.setNavigationIcon(R.drawable.ic_baseline_arrow_back_24)
         signInToolbar?.setNavigationOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(
-                R.id.container,
+                R.id.welcome_container,
                 MainFragment.newInstance()
             )?.commit()
         }
